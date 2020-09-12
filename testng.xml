@@ -6,6 +6,7 @@
         <classes>
             <class name="ZomatoAPITests">
                 <methods>
+                    <include name="getCategoryIdWithInvalidUserKEy"></include>
                     <include name="getCategoryId"></include>
                     <include name="getCityId"></include>
                     <include name="getCityIdForBangalore"></include>
@@ -16,6 +17,8 @@
                     <include name="getTopRatedRestaurantsNearMe"></include>
                     <include name="getMenuForTopRatedRes"></include>
                     <include name="getResDetailsForTopRatedRes"></include>
+                    <include name="getFiveLatestReviewsforARest"></include>
+                    <include name="getReviewsBasedOnStartOffsetAndCount"></include>
                     <include name="verifyDailyMenuForInvalidResId"></include>
                     <include name="verifyInvalidLatAndLonForGeocode"></include>
                     <include name="verifyGetRestaurantDetailsWithInvalidResId"></include>

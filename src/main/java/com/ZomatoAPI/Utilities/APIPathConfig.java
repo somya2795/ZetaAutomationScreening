@@ -12,6 +12,7 @@ public class APIPathConfig {
         public static final String Get_Menu_of_a_Restaraunt = "/dailymenu";
         public static final String Get_Restaraunt = "/restaurant";
         public static final String Get_Zomato_Collections_In_A_City = "/collections";
+        public static final String Get_Reviews_For_Restaurant = "/reviews";
 
 
     }

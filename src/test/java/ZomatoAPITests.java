@@ -25,10 +25,17 @@ public class ZomatoAPITests extends BaseClass {
     public static int collectionId;
     Zomato_Common_GetAPIs zomatoCommonGetAPIs = new Zomato_Common_GetAPIs();
 
+
+    @Test
+    public void getCategoryIdWithInvalidUserKEy() {
+        response = zomatoCommonGetAPIs.getListOfCategories("5466754324");
+        Assert.assertEquals(response.statusCode(), 403);
+
+    }
     // validating get CategoryId API and setting category id for Nightlife
     @Test
     public void getCategoryId() {
-        response = zomatoCommonGetAPIs.getListOfCategories();
+        response = zomatoCommonGetAPIs.getListOfCategories(user_key);
         Assert.assertEquals(response.statusCode(), 200);
         JSONObject obj = new JSONObject(response.asString());
         JSONArray categories = obj.getJSONArray("categories");
@@ -170,6 +177,33 @@ public class ZomatoAPITests extends BaseClass {
     }
 
     @Test
+    public void getFiveLatestReviewsforARest()
+    {
+        response = zomatoCommonGetAPIs.getReviewsForARestaurant(res_id,0, 0);
+        Assert.assertEquals(response.statusCode(),200);
+        JSONObject obj = new JSONObject(response.asString());
+        System.out.println(response.asString());
+        JSONArray user_reviews = obj.getJSONArray("user_reviews");
+        Assert.assertEquals(user_reviews.length(),5);
+    }
+
+    @Test
+    public void getReviewsBasedOnStartOffsetAndCount()
+    {
+        response = zomatoCommonGetAPIs.getReviewsForARestaurant(res_id,6, 8);
+        Assert.assertEquals(response.statusCode(),200);
+        JSONObject obj = new JSONObject(response.asString());
+        System.out.println(response.asString());
+        int reviews_start=obj.getInt("reviews_start");
+        Assert.assertEquals(reviews_start,6);
+        int reviews_shown = obj.getInt("reviews_shown");
+        Assert.assertEquals(reviews_shown,8);
+        JSONArray user_reviews = obj.getJSONArray("user_reviews");
+        Assert.assertEquals(user_reviews.length(),8);
+    }
+
+
+    @Test
     public void verifyDailyMenuForInvalidResId()
     {
          res_id = 56553523;
@@ -222,6 +256,7 @@ public class ZomatoAPITests extends BaseClass {
        int res_found = obj.getInt("results_found");
        Assert.assertEquals(res_found,countofResUnderACollection);
     }
+
 
 
 

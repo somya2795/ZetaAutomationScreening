@@ -10,10 +10,10 @@ import java.util.Map;
 
 public class Zomato_Common_GetAPIs extends BaseClass {
 
-    public Response getListOfCategories() {
+    public Response getListOfCategories(String userkey) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Accept", "application/json");
-        headers.put("user-key", user_key);
+        headers.put("user-key", userkey);
         System.out.println("get calls = " + baseUrl);
         String url = baseUrl + APIPathConfig.APIPath.Get_List_of_Categories;
         Response response = RestAPIUtility.getCall(url, headers);
@@ -148,5 +148,23 @@ public class Zomato_Common_GetAPIs extends BaseClass {
         String url = baseUrl+APIPathConfig.APIPath.Get_Zomato_Collections_In_A_City;
         Response response = RestAPIUtility.getCallwithQueryParams(url,headers,params);
         return response;
+    }
+
+    public Response getReviewsForARestaurant(int resId,int startOffset,int countOfReviews)
+    {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Accept", "application/json");
+        headers.put("user-key", user_key);
+        Map<String, Object> params = new HashMap<>();
+        params.put("res_id", resId);
+        if(startOffset>0)
+            params.put("start",String.valueOf(startOffset));
+        if(countOfReviews>0)
+            params.put("count",String.valueOf(countOfReviews));
+        String url = baseUrl+APIPathConfig.APIPath.Get_Reviews_For_Restaurant;
+        Response response = RestAPIUtility.getCallwithQueryParams(url,headers,params);
+        return response;
+
+
     }
 }
