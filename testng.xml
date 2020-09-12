@@ -24,6 +24,7 @@
                     <include name="verifyGetRestaurantDetailsWithInvalidResId"></include>
                     <include name="getCountofRestaurantUnderaCollection"></include>
                     <include name="verifyCountofResUnderACollection"></include>
+                    <include name="verifySearchRestaurantForDifferentLatLongAndCityId"></include>
                 </methods>
             </class>
         </classes>

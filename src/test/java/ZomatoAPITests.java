@@ -44,9 +44,7 @@ public class ZomatoAPITests extends BaseClass {
         for (int i = 0; i < categories.length(); i++) {
             String name = categories.getJSONObject(i).getJSONObject("categories").getString("name");
             if (name.equalsIgnoreCase("Nightlife")) {
-                System.out.println("entered");
                 categoryId = categories.getJSONObject(i).getJSONObject("categories").getInt("id");
-                System.out.println("id = " + categoryId);
             } else
                 continue;
         }
@@ -62,7 +60,7 @@ public class ZomatoAPITests extends BaseClass {
         for (int i = 0; i < location_suggestions.length(); i++) {
             String name = location_suggestions.getJSONObject(i).getString("name");
             Assert.assertTrue(name.contains("Delhi"));
-            System.out.println("passed");
+
         }
     }
 
@@ -74,7 +72,6 @@ public class ZomatoAPITests extends BaseClass {
         JSONObject res = new JSONObject(response.asString());
         JSONArray location_suggestions = res.getJSONArray("location_suggestions");
         cityIdofBangalore = location_suggestions.getJSONObject(0).getInt("id");
-        System.out.println(cityIdofBangalore);
         Assert.assertNotNull(cityIdofBangalore);
     }
 
@@ -155,8 +152,6 @@ public class ZomatoAPITests extends BaseClass {
             else
                 continue;
         }
-        System.out.println("top rated = "+res_id);
-
 
     }
 
@@ -165,7 +160,6 @@ public class ZomatoAPITests extends BaseClass {
     public void getMenuForTopRatedRes()
     {
         response = zomato_restaurant_getAPIs.getMenuListForRestaurant(res_id);
-        System.out.println(response.asString());
         Assert.assertEquals(response.statusCode(), 200);
 
     }
@@ -184,7 +178,6 @@ public class ZomatoAPITests extends BaseClass {
         response = zomato_restaurant_getAPIs.getReviewsForARestaurant(res_id,0, 0);
         Assert.assertEquals(response.statusCode(),200);
         JSONObject obj = new JSONObject(response.asString());
-        System.out.println(response.asString());
         JSONArray user_reviews = obj.getJSONArray("user_reviews");
         Assert.assertEquals(user_reviews.length(),5);
     }
@@ -195,7 +188,6 @@ public class ZomatoAPITests extends BaseClass {
         response = zomato_restaurant_getAPIs.getReviewsForARestaurant(res_id,6, 8);
         Assert.assertEquals(response.statusCode(),200);
         JSONObject obj = new JSONObject(response.asString());
-        System.out.println(response.asString());
         int reviews_start=obj.getInt("reviews_start");
         Assert.assertEquals(reviews_start,6);
         int reviews_shown = obj.getInt("reviews_shown");
@@ -261,6 +253,12 @@ public class ZomatoAPITests extends BaseClass {
 
 
 
+    @Test
+    public void verifySearchRestaurantForDifferentLatLongAndCityId()
+    {
+        response = zomato_restaurant_getAPIs.searchRestaurants(1,"city",lat,lon);
+        Assert.assertEquals(response.statusCode(),400);
+    }
 
 
 
