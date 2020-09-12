@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" preserve-order="true">
+
+    <test thread-count="5" name="On Source activity" preserve-order="true">
+        <classes>
+            <class name="ZomatoAPITests">
+                <methods>
+                    <include name="getCategoryId"></include>
+                    <include name="getCityId"></include>
+                    <include name="getCityIdForBangalore"></include>
+                    <include name="getEstablishmentsForBangalore"></include>
+                    <include name="getListOfAllMicrobreweryWithNightlifeinBangalore"></include>
+                    <include name="getListOfRestServingCuisineInACity"></include>
+                    <include name="getListofCafesinBangaloreProvidingChineseAndItalianCuisine"></include>
+                    <include name="getTopRatedRestaurantsNearMe"></include>
+                    <include name="getMenuForTopRatedRes"></include>
+                    <include name="getResDetailsForTopRatedRes"></include>
+                    <include name="verifyDailyMenuForInvalidResId"></include>
+                    <include name="verifyInvalidLatAndLonForGeocode"></include>
+                    <include name="verifyGetRestaurantDetailsWithInvalidResId"></include>
+                    <include name="getCountofRestaurantUnderaCollection"></include>
+                    <include name="verifyCountofResUnderACollection"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
