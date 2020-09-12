@@ -1,5 +1,6 @@
 import com.ZomatoAPI.Utilities.BaseClass;
 import com.ZomatoAPI.Utilities.Zomato_Common_GetAPIs;
+import com.ZomatoAPI.Utilities.Zomato_Restaurant_GetAPIs;
 import com.mongodb.util.JSON;
 import io.restassured.response.Response;
 import org.json.JSONArray;
@@ -24,6 +25,7 @@ public class ZomatoAPITests extends BaseClass {
     public static int countofResUnderACollection ;
     public static int collectionId;
     Zomato_Common_GetAPIs zomatoCommonGetAPIs = new Zomato_Common_GetAPIs();
+    Zomato_Restaurant_GetAPIs zomato_restaurant_getAPIs = new Zomato_Restaurant_GetAPIs();
 
 
     @Test
@@ -95,7 +97,7 @@ public class ZomatoAPITests extends BaseClass {
     // validating search API for all microbrewery in bangalore which has nightlife sorted with rating.
     @Test
     public void getListOfAllMicrobreweryWithNightlifeinBangalore() {
-        response = zomatoCommonGetAPIs.searchRestaurants(cityIdofBangalore, "city", establishmentId, categoryId, "rating");
+        response = zomato_restaurant_getAPIs.searchRestaurants(cityIdofBangalore, "city", establishmentId, categoryId, "rating");
         Assert.assertEquals(response.statusCode(), 200);
 
     }
@@ -131,7 +133,7 @@ public class ZomatoAPITests extends BaseClass {
                 continue;
         }
 
-        response = zomatoCommonGetAPIs.searchRestaurants(cityIdofBangalore, "city", cuisinesInCity, establishmentId, "rating");
+        response = zomato_restaurant_getAPIs.searchRestaurants(cityIdofBangalore, "city", cuisinesInCity, establishmentId, "rating");
         Assert.assertEquals(response.statusCode(), 200);
 
     }
@@ -162,7 +164,7 @@ public class ZomatoAPITests extends BaseClass {
     @Test
     public void getMenuForTopRatedRes()
     {
-        response = zomatoCommonGetAPIs.getMenuListForRestaurant(res_id);
+        response = zomato_restaurant_getAPIs.getMenuListForRestaurant(res_id);
         System.out.println(response.asString());
         Assert.assertEquals(response.statusCode(), 200);
 
@@ -171,7 +173,7 @@ public class ZomatoAPITests extends BaseClass {
     @Test
     public void getResDetailsForTopRatedRes()
     {
-        response = zomatoCommonGetAPIs.getRestaurantDetails(res_id);
+        response = zomato_restaurant_getAPIs.getRestaurantDetails(res_id);
         Assert.assertEquals(response.statusCode(), 200);
 
     }
@@ -179,7 +181,7 @@ public class ZomatoAPITests extends BaseClass {
     @Test
     public void getFiveLatestReviewsforARest()
     {
-        response = zomatoCommonGetAPIs.getReviewsForARestaurant(res_id,0, 0);
+        response = zomato_restaurant_getAPIs.getReviewsForARestaurant(res_id,0, 0);
         Assert.assertEquals(response.statusCode(),200);
         JSONObject obj = new JSONObject(response.asString());
         System.out.println(response.asString());
@@ -190,7 +192,7 @@ public class ZomatoAPITests extends BaseClass {
     @Test
     public void getReviewsBasedOnStartOffsetAndCount()
     {
-        response = zomatoCommonGetAPIs.getReviewsForARestaurant(res_id,6, 8);
+        response = zomato_restaurant_getAPIs.getReviewsForARestaurant(res_id,6, 8);
         Assert.assertEquals(response.statusCode(),200);
         JSONObject obj = new JSONObject(response.asString());
         System.out.println(response.asString());
@@ -207,7 +209,7 @@ public class ZomatoAPITests extends BaseClass {
     public void verifyDailyMenuForInvalidResId()
     {
          res_id = 56553523;
-        response = zomatoCommonGetAPIs.getMenuListForRestaurant(res_id);
+        response = zomato_restaurant_getAPIs.getMenuListForRestaurant(res_id);
         Assert.assertEquals(response.statusCode(), 400);
         Assert.assertTrue(response.asString().contains("No Daily Menu Available"));
     }
@@ -224,7 +226,7 @@ public class ZomatoAPITests extends BaseClass {
     @Test
     public void verifyGetRestaurantDetailsWithInvalidResId()
     {
-        response = zomatoCommonGetAPIs.getRestaurantDetails(res_id);
+        response = zomato_restaurant_getAPIs.getRestaurantDetails(res_id);
         Assert.assertEquals(response.statusCode(),400);
     }
 
@@ -250,7 +252,7 @@ public class ZomatoAPITests extends BaseClass {
     @Test
     public void verifyCountofResUnderACollection()
     {
-       response = zomatoCommonGetAPIs.searchRestaurants(cityIdofBangalore,"city",collectionId);
+       response = zomato_restaurant_getAPIs.searchRestaurants(cityIdofBangalore,"city",collectionId);
        Assert.assertEquals(response.statusCode(),200);
        JSONObject obj=new JSONObject(response.asString());
        int res_found = obj.getInt("results_found");
